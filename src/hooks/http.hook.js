@@ -12,7 +12,7 @@ const useHttp = () => {
       headers = { 'Content-Type': 'application/json' }
     ) => {
       setLoading(true)
-      setError(false)
+      setError(null)
 
       try {
         const response = await fetch(url, { method, body, headers })
@@ -35,11 +35,7 @@ const useHttp = () => {
     []
   )
 
-  const clearError = useCallback(() => {
-    setError(null)
-  }, [])
-
-  return { request, loading, error, clearError }
+  return { request, loading, error }
 }
 
 export default useHttp
