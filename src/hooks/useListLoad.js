@@ -48,7 +48,12 @@ const useListLoad = (requestFn, requestItemsQuantity, initOffset = 210) => {
     }
   }
 
-  return { list, isNewListLoading, isPageEnded, onUpdateList, offset }
+  return {
+    list,
+    isNewListLoading,
+    isItemsEnded,
+    onUpdateList,
+  }
 }
 
 export default useListLoad

@@ -1,4 +1,3 @@
-// import { useState, useEffect } from 'react'
 import useMarvelService from '../../services/MarvelService'
 import useListLoad from '../../hooks/useListLoad'
 
@@ -8,30 +7,12 @@ import LoadError from '../loadingStatus/LoadError/LoadError'
 import './comicsList.scss'
 
 const ComicsList = () => {
-  //   const [comicsList, setComicsList] = useState([])
-  //   const [newComicslistLoading, setNewComicslistLoading] = useState(false)
-  //   const [comicsEnded, setComicsEnded] = useState(false)
-  //   const [pageEnded, setPageEnded] = useState(false)
-  //   const [offset, setOffset] = useState(210)
-
   const { loading, error, getAllComics } = useMarvelService()
-  const { list, isNewListLoading, isPageEnded, onUpdateList } = useListLoad(
+  const { list, isNewListLoading, isItemsEnded, onUpdateList } = useListLoad(
     getAllComics,
     8,
     250
   )
-
-  //   useEffect(() => {
-  //     onUpdateComicsList()
-  //   }, [])
-
-  //   const onUpdateComicsList = (stateOffset) => {
-  //     getAllComics(stateOffset).then(onComicsListLoaded)
-  //   }
-
-  //   const onComicsListLoaded = (newComicsList) => {
-  //     setComicsList((prevComicsList) => [...prevComicsList, ...newComicsList])
-  //   }
 
   const createComicsListItems = (comicsListArr) => {
     const comics = comicsListArr.map(({ id, title, price, thumbnail }) => {
@@ -60,7 +41,7 @@ const ComicsList = () => {
       {elements}
       <button
         className="button button__main button__long"
-        style={{ display: isPageEnded ? 'none' : 'block' }}
+        style={{ display: isItemsEnded ? 'none' : 'block' }}
         type="button"
         disabled={isNewListLoading}
         onClick={onUpdateList}
