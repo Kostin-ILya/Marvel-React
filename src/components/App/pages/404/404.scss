@@ -1,0 +1,11 @@
+.pulse404 {
+  animation: pulse404 linear 1.5s infinite;
+}
+@keyframes pulse404 {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.1);
+  }
+}

@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 import useMarvelService from '../../services/MarvelService'
 import useListLoad from '../../hooks/useListLoad'
 
@@ -18,11 +20,11 @@ const ComicsList = () => {
     const comics = comicsListArr.map(({ id, title, price, thumbnail }) => {
       return (
         <li key={id} className="comics__item">
-          <a href="#">
+          <Link to={`/comics/${id}`}>
             <img className="comics__item-img" src={thumbnail} alt={title} />
             <div className="comics__item-name">{title}</div>
             <div className="comics__item-price">{price}</div>
-          </a>
+          </Link>
         </li>
       )
     })
