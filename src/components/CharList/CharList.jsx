@@ -1,7 +1,8 @@
+import PropTypes from 'prop-types'
+
 import useMarvelService from '../../services/MarvelService'
 import useListLoad from '../../hooks/useListLoad'
 import useListEvent from '../../hooks/useListEvent'
-import PropTypes from 'prop-types'
 
 import Spinner from '../loadingStatus/Spinner/Spinner'
 import LoadError from '../loadingStatus/LoadError/LoadError'
