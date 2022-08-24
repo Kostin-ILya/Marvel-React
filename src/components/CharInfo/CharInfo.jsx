@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import useMarvelService from '../../services/MarvelService'
 
@@ -52,11 +53,20 @@ const View = ({ char }) => {
 
   function createComics() {
     if (comics.length > 10) {
-      return [...comics].splice(0, 10).map((item) => (
-        <li className="char__comics-item" key={item.name}>
-          {item.name}
-        </li>
-      ))
+      return [...comics].splice(0, 10).map((item) => {
+        // const comicUrl = item.resourceURI.split('/')[6]
+        const comicID = item.resourceURI.replace(/\D/g, '').slice(1)
+
+        return (
+          <Link
+            to={`comics/${comicID}`}
+            className="char__comics-item"
+            key={item.name}
+          >
+            {item.name}
+          </Link>
+        )
+      })
     }
     return comics.map((item) => (
       <li className="char__comics-item" key={item.name}>

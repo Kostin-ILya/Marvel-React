@@ -31,10 +31,27 @@
   &__back {
     justify-self: end;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 20px;
     line-height: 24px;
+    color: $main-color;
     &:hover {
       color: $main-color;
     }
+  }
+
+  .navigateLink {
+    display: block;
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+    color: #9f0013;
+    cursor: pointer;
+  }
+
+  .linksWrapper {
+    display: flex;
+    height: 450px;
+    flex-direction: column;
+    justify-content: space-evenly;
   }
 }

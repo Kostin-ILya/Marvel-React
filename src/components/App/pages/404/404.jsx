@@ -1,27 +1,35 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import LoadError from '../../../loadingStatus/LoadError/LoadError'
 
 import './404.scss'
 
 const Page404 = () => {
+  const navigate = useNavigate()
+  const onPrevPage = (e) => {
+    e.preventDefault()
+    navigate(-1)
+  }
+
+  const linkStyle = {
+    display: 'block',
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 27,
+    marginTop: 50,
+    color: '#9f0013',
+    cursor: 'pointer',
+  }
+
   return (
-    <div style={{ marginTop: '15%' }}>
+    <div>
       <LoadError />
       <p style={{ textAlign: 'center', fontWeight: 'bold', fontSize: '24px' }}>
         Page doesn&apos;t exist
       </p>
-      <Link
-        style={{
-          display: 'block',
-          textAlign: 'center',
-          fontWeight: 'bold',
-          fontSize: 30,
-          marginTop: 50,
-          color: '#9f0013',
-        }}
-        className={'pulse404'}
-        to="/"
-      >
+      <a style={linkStyle} onClick={onPrevPage}>
+        Back to previous page
+      </a>
+      <Link to="../" style={linkStyle} className="pulse404">
         Back to main page
       </Link>
     </div>

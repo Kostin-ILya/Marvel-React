@@ -29,7 +29,6 @@ const AppHeader = () => {
             /
             <li>
               <NavLink
-                end
                 to="/comics"
                 style={({ isActive }) => (isActive ? activeStyle : null)}
               >
