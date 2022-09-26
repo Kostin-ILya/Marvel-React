@@ -1,6 +1,6 @@
 import { Component } from 'react'
 
-import LoadError from '../loadingStatus/LoadError/LoadError'
+import Error from '../loadingStatus/Error/Error'
 
 class ErrorBoundary extends Component {
   state = {
@@ -17,7 +17,7 @@ class ErrorBoundary extends Component {
 
   render() {
     if (this.state.error) {
-      return <LoadError />
+      return <Error />
     }
 
     return this.props.children

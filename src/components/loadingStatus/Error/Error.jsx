@@ -1,6 +1,6 @@
 import img from './error.gif'
 
-const LoadError = () => (
+const Error = () => (
   <img
     src={img}
     alt="error"
@@ -14,4 +14,4 @@ const LoadError = () => (
   />
 )
 
-export default LoadError
+export default Error
