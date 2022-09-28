@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
+import useMarvelService from '../../hooks/useMarvelService'
+
 import PropTypes from 'prop-types'
 
-import MarvelService from '../../services/MarvelService'
 import Spinner from '../loadingStatus/Spinner/Spinner'
 import Error from '../loadingStatus/Error/Error'
 
@@ -9,19 +10,18 @@ import './charList.scss'
 
 const CharList = (props) => {
   const [charList, setCharList] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(false)
   const [offset, setOffset] = useState(210)
+
   const [isNewCharlistLoading, setNewCharlistLoading] = useState(false)
   const [isCharsEnded, setCharsEnded] = useState(false)
   const [isPageEnded, setPageEnded] = useState(false)
 
   const charItemsRefs = React.createRef(null)
 
-  const marvelService = new MarvelService()
+  const { isLoading, isError, getAllCharacters } = useMarvelService()
 
   useEffect(() => {
-    onUpdateCharList()
+    onUpdateCharList(offset, true)
 
     window.addEventListener('scroll', checkPageEnded)
 
@@ -36,28 +36,20 @@ const CharList = (props) => {
     }
   }, [isPageEnded, isNewCharlistLoading])
 
-  const onUpdateCharList = (currentOffset) => {
-    setNewCharlistLoading(true)
+  const onUpdateCharList = (currentOffset, initialLoad) => {
+    if (!initialLoad) {
+      setNewCharlistLoading(true)
+    }
 
-    marvelService
-      .getAllCharacters(currentOffset)
-      .then(onCharListLoaded)
-      .catch(onLoadError)
+    getAllCharacters(currentOffset).then(onCharListLoaded)
   }
 
   const onCharListLoaded = (newCharList) => {
     setCharList((prevCharList) => [...prevCharList, ...newCharList])
-    setLoading(false)
     setNewCharlistLoading(false)
     setCharsEnded(newCharList.length < 9)
     setPageEnded(false)
     setOffset((prevOffset) => prevOffset + 9)
-  }
-
-  const onLoadError = (err) => {
-    setLoading(false)
-    setError(true)
-    console.error(err)
   }
 
   const checkPageEnded = () => {
@@ -116,16 +108,14 @@ const CharList = (props) => {
   }
 
   const elements = createCharListItems(charList)
-  const spinner = loading ? <Spinner /> : null
-  const loadError = error ? <Error /> : null
-  const content = loading || error ? null : elements
+  const spinner = isLoading && !isNewCharlistLoading ? <Spinner /> : null
+  const loadError = isError ? <Error /> : null
 
   return (
     <div className="char__list">
       {spinner}
       {loadError}
-      {content}
-
+      {elements}
       <button
         type="button"
         className="button button__main button__long"

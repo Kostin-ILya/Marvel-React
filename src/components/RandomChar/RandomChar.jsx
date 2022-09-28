@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import MarvelService from '../../services/MarvelService'
+import useMarvelService from '../../hooks/useMarvelService'
 
 import Spinner from '../loadingStatus/Spinner/Spinner'
 import Error from '../loadingStatus/Error/Error'
@@ -9,10 +9,8 @@ import './randomChar.scss'
 
 const RandomChar = () => {
   const [char, setChar] = useState(null)
-  const [isLoading, setLoading] = useState(false)
-  const [isError, setError] = useState(false)
 
-  const marvelService = new MarvelService()
+  const { isLoading, isError, getCharacter } = useMarvelService()
 
   useEffect(() => {
     updateChar()
@@ -21,25 +19,7 @@ const RandomChar = () => {
   const updateChar = () => {
     const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000)
 
-    charLoading()
-
-    marvelService.getCharacter(id).then(onCharLoaded).catch(onLoadError)
-  }
-
-  const charLoading = () => {
-    setLoading(true)
-    setError(false)
-  }
-
-  const onCharLoaded = (newChar) => {
-    setLoading(false)
-    setChar(newChar)
-  }
-
-  const onLoadError = (err) => {
-    setLoading(false)
-    setError(true)
-    console.error(err)
+    getCharacter(id).then(setChar)
   }
 
   const spinner = isLoading ? <Spinner /> : null

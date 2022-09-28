@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
+
 import PropTypes from 'prop-types'
-import MarvelService from '../../services/MarvelService'
+
+import useMarvelService from '../../hooks/useMarvelService'
 
 import Spinner from '../loadingStatus/Spinner/Spinner'
 import Error from '../loadingStatus/Error/Error'
@@ -10,10 +12,8 @@ import './charInfo.scss'
 
 const CharInfo = (props) => {
   const [char, setChar] = useState(null)
-  const [isLoading, setLoading] = useState(false)
-  const [isError, setError] = useState(false)
 
-  const marvelService = new MarvelService()
+  const { isLoading, isError, getCharacter } = useMarvelService()
 
   useEffect(() => {
     updateChar()
@@ -21,29 +21,8 @@ const CharInfo = (props) => {
 
   const updateChar = () => {
     if (props.charId) {
-      charLoading()
-
-      marvelService
-        .getCharacter(props.charId)
-        .then(onCharLoaded)
-        .catch(onLoadError)
+      getCharacter(props.charId).then(setChar)
     }
-  }
-
-  const charLoading = () => {
-    setLoading(true)
-    setError(false)
-  }
-
-  const onCharLoaded = (newChar) => {
-    setLoading(false)
-    setChar(newChar)
-  }
-
-  const onLoadError = (err) => {
-    setLoading(false)
-    setError(true)
-    console.error(err)
   }
 
   const skeleton = char || isLoading || isError ? null : <Skeleton />
