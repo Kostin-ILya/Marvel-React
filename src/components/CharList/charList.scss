@@ -23,15 +23,16 @@
     padding: 15px;
     cursor: pointer;
     transition: 0.3s transform;
+    &:hover {
+      box-shadow: 0 5px 20px #9f0013;
+      -webkit-transform: translateY(-8px);
+      transform: translateY(-12px);
+    }
     img {
       width: 200px;
       height: 200px;
       object-fit: cover;
       transform: translate(-15px, -15px);
-    }
-    &_selected {
-      box-shadow: 0 5px 20px $main-color;
-      transform: translateY(-8px);
     }
   }
   &__name {
@@ -41,4 +42,9 @@
     text-transform: uppercase;
     color: #fff;
   }
+}
+
+.item_selected {
+  box-shadow: 0 5px 20px $main-color;
+  transform: translateY(-12px);
 }
