@@ -9,7 +9,7 @@ const useListLoad = (requestFn, requestItemsQuantity, initOffset = 210) => {
 
   useEffect(() => {
     window.addEventListener('scroll', checkPageEnded)
-    onUpdateList(offset, true)
+    onUpdateList(true)
 
     return () => {
       window.removeEventListener('scroll', checkPageEnded)
@@ -18,16 +18,16 @@ const useListLoad = (requestFn, requestItemsQuantity, initOffset = 210) => {
 
   useEffect(() => {
     if (isPageEnded && !isNewListLoading && !isItemsEnded) {
-      onUpdateList(offset)
+      onUpdateList()
     }
   }, [isPageEnded])
 
-  const onUpdateList = (stateOffset, initLoad) => {
+  const onUpdateList = (initLoad) => {
     if (!initLoad) {
       setIsNewCListLoading(true)
     }
 
-    requestFn(stateOffset).then(onListLoaded)
+    requestFn(offset).then(onListLoaded)
   }
 
   const onListLoaded = (newList) => {
@@ -52,6 +52,7 @@ const useListLoad = (requestFn, requestItemsQuantity, initOffset = 210) => {
     isNewListLoading,
     isItemsEnded,
     onUpdateList,
+    offset,
   }
 }
 

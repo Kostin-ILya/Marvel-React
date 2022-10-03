@@ -4,6 +4,7 @@ import AppHeader from '../AppHeader/AppHeader'
 import RandomChar from '../RandomChar/RandomChar'
 import CharList from '../CharList/CharList'
 import CharInfo from '../CharInfo/CharInfo'
+import ComicsList from '../ComicsList/ComicsList'
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary'
 
 import decoration from '../../resources/img/vision.png'
@@ -15,22 +16,32 @@ const App = () => {
     setSelectedChar(charId)
   }
 
+  // return (
+  //   <div className="app">
+  //     <AppHeader />
+  //     <main>
+  //       <ErrorBoundary>
+  //         <RandomChar />
+  //       </ErrorBoundary>
+  //       <div className="char__content">
+  //         <ErrorBoundary>
+  //           <CharList onCharSelected={onCharSelected} />
+  //         </ErrorBoundary>
+  //         <ErrorBoundary>
+  //           <CharInfo charId={selectedChar} />
+  //         </ErrorBoundary>
+  //       </div>
+  //       <img className="bg-decoration" src={decoration} alt="vision" />
+  //     </main>
+  //   </div>
+  // )
   return (
     <div className="app">
       <AppHeader />
       <main>
         <ErrorBoundary>
-          <RandomChar />
+          <ComicsList />
         </ErrorBoundary>
-        <div className="char__content">
-          <ErrorBoundary>
-            <CharList onCharSelected={onCharSelected} te />
-          </ErrorBoundary>
-          <ErrorBoundary>
-            <CharInfo charId={selectedChar} />
-          </ErrorBoundary>
-        </div>
-        <img className="bg-decoration" src={decoration} alt="vision" />
       </main>
     </div>
   )
